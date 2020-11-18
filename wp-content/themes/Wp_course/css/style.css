@@ -116,43 +116,6 @@ p{
 	text-align: center;
 	margin: 0;
 }
-.img1{
-	background-image: url(../img/portfolio/1.jpg);
-}
-.img2{
-	background-image: url(../img/portfolio/2.jpg);
-}
-.img3{
-	background-image: url(../img/portfolio/3.jpg);
-}
-.img4{
-	background-image: url(../img/portfolio/4.jpg);
-}
-.img5{
-	background-image: url(../img/portfolio/5.jpg);
-}
-.img6{
-	background-image: url(../img/portfolio/6.jpg);
-}
-.img7{
-	background-image: url(../img/portfolio/7.jpg);
-}
-.img8{
-	background-image: url(../img/portfolio/8.jpg);
-}
-.img9{
-	background-image: url(../img/portfolio/9.jpg);
-}
-
-.img10{
-	background-image: url(../img/portfolio/10.jpg);
-}
-.img11{
-	background-image: url(../img/portfolio/11.jpg);
-}
-.img12{
-	background-image: url(../img/portfolio/12.jpg);
-}
 .wall{
 	color: #676767;
 	max-width: 78%;
@@ -241,4 +204,8 @@ p{
 }
 .clean{
 	clear: both; 
+}
+.posts{
+	padding: 20px;
+	display: block;
 }

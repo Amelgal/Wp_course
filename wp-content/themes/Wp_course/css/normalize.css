@@ -8,7 +8,7 @@ body {
 }
 
 main {
-  display: block;
+  float: left;
   justify-content: center;
   width: 70%;
 }
@@ -20,7 +20,6 @@ h1 {
 
 hr {
   box-sizing: content-box; /* 1 */
-  height: 0; /* 1 */
   overflow: visible; /* 2 */
 }
 
@@ -309,4 +308,12 @@ template {
 
 [hidden] {
   display: none;
+}
+
+.sidebar {
+  width: 30%;
+  float: left; /* Обтекание по правому краю */
+}
+.clean{
+  clear: left;
 }
