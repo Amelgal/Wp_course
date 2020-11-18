@@ -21,8 +21,8 @@
 	<?php wp_course_post_thumbnail(); ?>
 
 	<div class="entry-content">
-		<?php
-
+        <?php
+        the_taxonomies();
 		the_content(
 			sprintf(
 				wp_kses(
