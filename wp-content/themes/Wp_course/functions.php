@@ -85,7 +85,6 @@ if ( ! function_exists( 'wp_course_setup' ) ) :
 endif;
 add_action( 'after_setup_theme', 'wp_course_setup' );
 
-
 function wp_course_content_width() {
 	$GLOBALS['content_width'] = apply_filters( 'wp_course_content_width', 640 );
 }
@@ -123,6 +122,32 @@ function wp_course_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wp_course_scripts' );
+
+function swim_setup_post_type() {
+    $labels = array(
+        'name'                  => _x( 'Swim', 'Post type general name', 'textdomain' ),
+        'singular_name'         => _x( 'Swim', 'Post type singular name', 'textdomain' ),
+        'menu_name'             => _x( 'Swimming types', 'Admin Menu text', 'textdomain' ),
+        'name_admin_bar'        => _x( 'Swim', 'Add New on Toolbar', 'textdomain' ),
+        'add_new'               => __( 'Add New', 'textdomain' ),
+        'add_new_item'          => __( 'Add New type', 'textdomain' ),
+        'new_item'              => __( 'New type', 'textdomain' ),
+        'edit_item'             => __( 'Edit type', 'textdomain' ),
+        'view_item'             => __( 'View type', 'textdomain' ),
+        'all_items'             => __( 'All types', 'textdomain' ),
+        'search_items'          => __( 'Search type', 'textdomain' ),
+        'not_found'             => __( 'No types found.', 'textdomain' ),
+        'archives'              => _x( 'Types archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'textdomain' ),
+    );
+    $args = array(
+        'public'    => true,
+        'labels'    => $labels,
+        'has_archive'=> true,
+    );
+    register_post_type( 'Swim', $args );
+}
+add_action( 'init', 'swim_setup_post_type' );
+
 
 /**
  * Implement the Custom Header feature.
