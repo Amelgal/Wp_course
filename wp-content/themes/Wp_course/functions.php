@@ -148,6 +148,85 @@ function swim_setup_post_type() {
 }
 add_action( 'init', 'swim_setup_post_type' );
 
+/**
+* Register meta box(es).
+ */
+function wp_course_register_difficulty_meta_boxes() {
+    add_meta_box(
+        'difficulty_meta_box_id',
+        __( 'Difficulty', 'textdomain' ),
+        'wp_course_render_difficulty_meta_boxes',
+        'swim',
+        'side'
+    );
+}
+function wp_course_register_popularity_meta_boxes() {
+    add_meta_box(
+        'popularity_meta_box_id',
+        __( 'Popularity', 'textdomain' ),
+        'wp_course_render_popularity_meta_boxes',
+        'swim',
+        'side'
+    );
+}
+add_action( 'add_meta_boxes', 'wp_course_register_difficulty_meta_boxes' );
+add_action( 'add_meta_boxes', 'wp_course_register_popularity_meta_boxes' );
+
+function wp_course_render_difficulty_meta_boxes( $post ) {
+    $difficult =  get_post_meta($post->ID, 'difficulty_type', true);
+    ?>
+    <input type="radio" name="difficulty_type" value="<?php _e('complex');?>">  <?php _e('Complex');?>
+    <input type="radio" name="difficulty_type" value="<?php _e('middle');?>">   <?php _e('Middle');?>
+    <input type="radio" name="difficulty_type" value="<?php _e('easy');?>">     <?php _e('Еasy');?>
+    <hr><label for="difficulty_type"> <?php _e('Difficulty of type');?></label>
+    <input type="text" name="difficulty_type" id="difficulty_type" value="<?=ucfirst($difficult);?>" disabled>
+    <?php
+}
+function wp_course_render_popularity_meta_boxes( $post ) {
+    $popular =  get_post_meta($post->ID, 'popularity', true);
+    ?>
+
+    <p>
+        <label for="popularity-select"><?php _e( 'Select popularity of type')?></label>
+        <select name="popularity" id="popularity-select">
+            <option value="high">       <?php _e( 'High')?>     </option>
+            <option value="average">    <?php _e( 'Average')?>  </option>
+            <option value="low">        <?php _e( 'Low')?>      </option>
+        </select>
+    </p>
+    <hr>
+    <label for="popularity"><?php _e('Popularity')?></label>
+    <input type="text" name="difficulty_type" id="popularity" value="<?=ucfirst($popular);?>" disabled>
+    <?php
+}
+/**
+ * Save meta box content.
+ *
+ * @param int $post_id Post ID
+*/
+function wp_course_save_difficulty_meta_box( $post_id ) {
+
+    if(array_key_exists('difficulty_type',$_POST)){
+        update_post_meta(
+            $post_id,
+            'difficulty_type',
+            $_POST['difficulty_type']
+        );
+    }
+}
+function wp_course_save_popularity_meta_box( $post_id ) {
+
+    if(array_key_exists('popularity',$_POST)){
+        update_post_meta(
+            $post_id,
+            'popularity',
+            $_POST['popularity']
+        );
+    }
+}
+add_action( 'save_post', 'wp_course_save_difficulty_meta_box' );
+add_action( 'save_post', 'wp_course_save_popularity_meta_box' );
+
 
 /**
  * Implement the Custom Header feature.
