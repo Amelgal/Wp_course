@@ -11,6 +11,7 @@ main {
   float: left;
   justify-content: center;
   width: 70%;
+  padding: 20px;
 }
 
 h1 {
