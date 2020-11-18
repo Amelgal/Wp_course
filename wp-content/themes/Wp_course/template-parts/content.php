@@ -22,6 +22,7 @@
 
 	<div class="entry-content">
 		<?php
+
 		the_content(
 			sprintf(
 				wp_kses(
@@ -43,6 +44,7 @@
 				'after'  => '</div>',
 			)
 		);
+
 		?>
         <div class="custom-meta-box">
             <h4>Popularity of this type: <?= ucfirst(get_post_meta(get_the_ID(), 'popularity', true))?></h4>
