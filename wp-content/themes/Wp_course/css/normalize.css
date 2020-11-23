@@ -292,12 +292,6 @@ summary {
   display: list-item;
 }
 
-/* Misc
-   ========================================================================== */
-
-/**
- * Add the correct display in IE 10+.
- */
 
 template {
   display: none;
@@ -317,4 +311,38 @@ template {
 }
 .clean{
   clear: left;
+}
+.services {
+  margin: 0;
+}
+
+.services__items {
+  position: relative;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: 0 -15px 0 0;
+}
+.entry-title{
+text-align: center;
+  margin: 10px 0;
+}
+
+.services__item {
+  width: calc(33.33% - 15px);
+  height: auto;
+  margin: 0 15px 0 0;
+  border: 6px solid #00874F;
+  padding: 30px 13px;
+  outline: none;
+}
+[id="primary_page"]
+{
+  float: none;
+  justify-content: normal;
+  margin-left: auto;
+  margin-right: auto;
 }

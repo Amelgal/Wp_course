@@ -283,6 +283,12 @@ function wp_course_register_taxonomies() {
 }
 add_action( 'init', 'wp_course_register_taxonomies', 0 );
 
+function do_excerpt($string, $word_limit) {
+    $words = explode(' ', $string, ($word_limit + 1));
+    if (count($words) > $word_limit)
+        array_pop($words);
+    echo implode(' ', $words).' ...';
+}
 
 /**
  * Implement the Custom Header feature.
@@ -310,4 +316,34 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
+
+function slider_func( array $atts ){
+    global $post;
+    $atts['numberposts'] = (int)$atts['numberposts'];
+    ?>
+    <section class="services">
+            <div class="services__items">
+                <?php
+                $myposts = get_posts($atts);
+                foreach($myposts as $post) :
+                    setup_postdata($post); ?>
+                <div class="services__item">
+                    <?php the_title( '<h3 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h3>');?>
+                    <div class="services__text">
+                        <?php do_excerpt(get_the_excerpt(), 20);?>
+                    </div><!-- .services__text -->
+                    <div class="custom-meta-box">
+                        <h5>Popularity of this type: <?= ucfirst(get_post_meta(get_the_ID(), 'popularity', true))?></h5>
+                        <h5>Difficult of this type: <?= ucfirst(get_post_meta(get_the_ID(), 'difficulty_type', true))?></h5>
+                    </div>
+                </div><!-- .services__item -->
+                <?php
+                wp_reset_postdata();
+                endforeach;
+                ?>
+            </div>
+        </section><?php
+}
+add_shortcode( 'slider', 'slider_func' );
 
