@@ -1,13 +1,8 @@
 <?php
-//if ( ! is_active_sidebar( 'sidebar-1' ) ) {
-//	return;
-//}
-//?>
-<!---->
-<!--<aside id="secondary" class="widget-area">-->
-<!--	--><?php //dynamic_sidebar( 'sidebar-1' ); ?>
-<!--</aside> #secondary -->
 
+use View\WheatherShortcode;
+
+?>
 <div class="sidebar">
     <h2><?php _e('Categories'); ?></h2>
     <ul>
@@ -17,4 +12,9 @@
     <ul>
         <?php wp_get_archives('type=monthly'); ?>
     </ul>
+    <?php
+    WheatherShortcode::registration();
+    WheatherShortcode::renderShortcode();
+    ?>
+
 </div>

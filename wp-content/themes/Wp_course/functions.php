@@ -1,4 +1,11 @@
 <?php
+define('DIR_PATH', plugin_dir_path(__FILE__));
+
+use Metabox\SaveMetaBox;
+use Metabox\RegistrationMetaBox;
+require_once(DIR_PATH . '/class-metabox/class-registration-metabox.php');
+require_once(DIR_PATH . '/class-metabox/class-save-metabox.php');
+
 if (!defined('_S_VERSION')) {
     // Replace the version number of the theme on each release.
     define('_S_VERSION', '1.0.0');
@@ -116,8 +123,8 @@ add_action('widgets_init', 'wp_course_widgets_init');
 function wp_course_scripts()
 {
     wp_enqueue_style('wp_course-style', get_stylesheet_uri(), array(), _S_VERSION);
-    wp_enqueue_style('normalize', get_template_directory_uri() . '/css/normalize.css', array("wp_course-style"), _S_VERSION);
-    wp_enqueue_style('wp_course-main-style', get_template_directory_uri() . '/css/style.css', array("wp_course-style"), _S_VERSION);
+    wp_enqueue_style('normalize', get_template_directory_uri() . '/assets/css/normalize.css', array("wp_course-style"), _S_VERSION);
+    wp_enqueue_style('wp_course-main-style', get_template_directory_uri() . '/assets/css/style.css', array("wp_course-style"), _S_VERSION);
 
     wp_style_add_data('wp_course-style', 'rtl', 'replace');
 
@@ -223,7 +230,6 @@ function wp_course_render_popularity_meta_boxes($post)
  */
 function wp_course_save_difficulty_meta_box($post_id)
 {
-
     if (array_key_exists('difficulty_type', $_POST)) {
         update_post_meta(
             $post_id,
@@ -373,4 +379,27 @@ function slider_func(array $atts)
 }
 
 add_shortcode('slider', 'slider_func');
+
+
+new RegistrationMetaBox('wporg_box_id','Custom Meta Box Title', 'html', 'swim');
+
+function html( $post ) {
+    $value = get_post_meta( $post->ID, '_wporg_meta_key', true );
+    var_dump(get_post_meta( $post->ID, '_wporg_meta_key', true ));
+    ?>
+
+    <label for="wporg_field">Description for this field</label>
+    <input type="radio" name="_wporg_meta_key" value="<?php _e('sdgfsdf'); ?>">  <?php _e('sdgfsdf'); ?>
+    <input type="radio" name="_wporg_meta_key" value="<?php _e('11111111'); ?>">   <?php _e('11111111'); ?>
+
+
+    <hr>
+    <label for="_wporg_meta_key"><?php _e('TEST') ?></label>
+    <input type="text" name="_wporg_meta_key" id="_wporg_meta_key" value="<?= ucfirst($value); ?>" disabled>
+
+    <?php
+}
+
+new SaveMetaBox('_wporg_meta_key');
+
 
