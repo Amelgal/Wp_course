@@ -6,35 +6,33 @@ require_once(DIR_PATH . '/core/class-meta-box.php');
 
 class RegistrationMetaBox extends WPOrg_Meta_Box
 {
-    private static string $id;
-    private static string $title;
-    private static string $contenr;
-    private static string $type;
+    private  string $id;
+    private  string $title;
+    private  string $contenr;
+    private  string $type;
+    private  string $align;
 
-    public function __construct(string $id, string $title, string $contenr, string $type)
+    public function __construct(string $id, string $title, string $contenr, string $type, string $align = 'advanced')
      {
-         self::$id = $id;
-         self::$title = $title;
-         self::$contenr = $contenr;
-         self::$type = $type;
-         add_action('add_meta_boxes', array(self::class, 'add'));
+         $this->id = $id;
+         $this->title = $title;
+         $this->contenr = $contenr;
+         $this->type = $type;
+         $this->align = $align;
+         add_action('add_meta_boxes', array($this, 'add'));
      }
 
     /**
      * Set up and add the meta box.
      */
-    public static function add() {
+    public function add() {
         add_meta_box(
-            self::$id,          // Unique ID
-            self::$title, // Box title
-            self::$contenr,   // Content callback, must be of type callable
-            self::$type                  // Post type
-//            'wporg_box_id',          // Unique ID
-//            'Custom Meta Box Title', // Box title
-//            'html',   // Content callback, must be of type callable
-//            'swim'                  // Post type
+            $this->id,      // Unique ID
+            $this->title,   // Box title
+            $this->contenr, // Content callback, must be of type callable
+            $this->type,    // Post type
+            $this->align
         );
     }
-
 
 }
