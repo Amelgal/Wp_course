@@ -4,10 +4,10 @@ namespace Core;
 
 abstract class WPOrg_Meta_Box {
 
-    public static function add() {
+    protected function add() {
     }
 
-    public static function save( int $post_id ) {
+    public function save( int $post_id ) {
     }
 }
 

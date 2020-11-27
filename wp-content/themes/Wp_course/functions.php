@@ -167,30 +167,11 @@ add_action('init', 'swim_setup_post_type');
 /**
  * Register meta box(es).
  */
-function wp_course_register_difficulty_meta_boxes()
-{
-    add_meta_box(
-        'difficulty_meta_box_id',
-        __('Difficulty', 'textdomain'),
-        'wp_course_render_difficulty_meta_boxes',
-        'swim',
-        'side'
-    );
-}
 
-function wp_course_register_popularity_meta_boxes()
-{
-    add_meta_box(
-        'popularity_meta_box_id',
-        __('Popularity', 'textdomain'),
-        'wp_course_render_popularity_meta_boxes',
-        'swim',
-        'side'
-    );
-}
+new RegistrationMetaBox('popularity_meta_box_id',__('Popularity', 'textdomain'), 'wp_course_render_popularity_meta_boxes', 'swim','side');
+new RegistrationMetaBox('difficulty_meta_box_id',__('Difficulty', 'textdomain'), 'wp_course_render_difficulty_meta_boxes', 'swim','side');
 
-add_action('add_meta_boxes', 'wp_course_register_difficulty_meta_boxes');
-add_action('add_meta_boxes', 'wp_course_register_popularity_meta_boxes');
+
 
 function wp_course_render_difficulty_meta_boxes($post)
 {
@@ -203,7 +184,6 @@ function wp_course_render_difficulty_meta_boxes($post)
     <input type="text" name="difficulty_type" id="difficulty_type" value="<?= ucfirst($difficult); ?>" disabled>
     <?php
 }
-
 function wp_course_render_popularity_meta_boxes($post)
 {
     $popular = get_post_meta($post->ID, 'popularity', true);
@@ -228,31 +208,12 @@ function wp_course_render_popularity_meta_boxes($post)
  *
  * @param int $post_id Post ID
  */
-function wp_course_save_difficulty_meta_box($post_id)
-{
-    if (array_key_exists('difficulty_type', $_POST)) {
-        update_post_meta(
-            $post_id,
-            'difficulty_type',
-            $_POST['difficulty_type']
-        );
-    }
-}
 
-function wp_course_save_popularity_meta_box($post_id)
-{
 
-    if (array_key_exists('popularity', $_POST)) {
-        update_post_meta(
-            $post_id,
-            'popularity',
-            $_POST['popularity']
-        );
-    }
-}
+new SaveMetaBox('difficulty_type');
+new SaveMetaBox('popularity');
 
-add_action('save_post', 'wp_course_save_difficulty_meta_box');
-add_action('save_post', 'wp_course_save_popularity_meta_box');
+
 
 /**
  * Register taxonomy(ies).
@@ -379,27 +340,3 @@ function slider_func(array $atts)
 }
 
 add_shortcode('slider', 'slider_func');
-
-
-new RegistrationMetaBox('wporg_box_id','Custom Meta Box Title', 'html', 'swim');
-
-function html( $post ) {
-    $value = get_post_meta( $post->ID, '_wporg_meta_key', true );
-    var_dump(get_post_meta( $post->ID, '_wporg_meta_key', true ));
-    ?>
-
-    <label for="wporg_field">Description for this field</label>
-    <input type="radio" name="_wporg_meta_key" value="<?php _e('sdgfsdf'); ?>">  <?php _e('sdgfsdf'); ?>
-    <input type="radio" name="_wporg_meta_key" value="<?php _e('11111111'); ?>">   <?php _e('11111111'); ?>
-
-
-    <hr>
-    <label for="_wporg_meta_key"><?php _e('TEST') ?></label>
-    <input type="text" name="_wporg_meta_key" id="_wporg_meta_key" value="<?= ucfirst($value); ?>" disabled>
-
-    <?php
-}
-
-new SaveMetaBox('_wporg_meta_key');
-
-
